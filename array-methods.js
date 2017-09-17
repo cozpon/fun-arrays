@@ -1,3 +1,4 @@
+
 var dataset = require('./dataset.json');
 
 /*
@@ -6,11 +7,11 @@ var dataset = require('./dataset.json');
   assign the resulting new array to `hundredThousandairs`
 */
 
-var hundredThousandairs = null;
+
 function moreThanHundredK(element, index, array){
   return element.amount > 100000;
 }
-hundredThousandairs = dataset.bankBalances.filter(moreThanHundredK);
+var hundredThousandairs = dataset.bankBalances.filter(moreThanHundredK);
 
 
 
@@ -101,11 +102,6 @@ sumOfBankBalances = parseFloat(rounded);
 
 
 
-
-
-
-
-
 /*
   from each of the following states:
     Wisconsin
@@ -117,7 +113,23 @@ sumOfBankBalances = parseFloat(rounded);
   take each `amount` and add 18.9% interest to it rounded to the nearest cent
   and then sum it all up into one value saved to `sumOfInterests`
  */
-var sumOfInterests = null;
+
+var statesIWant = ["WI", "IL", "WY", "OH", "GA", "DE"];
+var amount = 0;
+
+  function findAmount(previous, current, array) {
+    if (statesIWant.includes(current.state)) {
+      amount = parseFloat(((current.amount) * 0.189).toFixed(2));
+      console.log(current.amount,"CURRENT");
+      console.log(amount);
+      console.log(previous, "PREVI");
+
+    }
+    return previous + amount;
+
+}
+var sumOfInterests = parseFloat(dataset.bankBalances.reduce(findAmount, 0).toFixed(2));
+
 
 /*
   aggregate the sum of bankBalance amounts
@@ -131,7 +143,7 @@ var sumOfInterests = null;
     the value must be rounded to the nearest cent
 
   note: During your summation (
-    if at any point durig your calculation where the number looks like `2486552.9779399997`
+    if at any point during your calculation where the number looks like `2486552.9779399997`
     round this number to the nearest 10th of a cent before moving on.
   )
  */
