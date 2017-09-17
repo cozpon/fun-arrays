@@ -5,7 +5,14 @@ var dataset = require('./dataset.json');
   greater than 100000
   assign the resulting new array to `hundredThousandairs`
 */
+
 var hundredThousandairs = null;
+function moreThanHundredK(element, index, array){
+  return element.amount > 100000;
+}
+hundredThousandairs = dataset.bankBalances.filter(moreThanHundredK);
+
+
 
 /*
   DO NOT MUTATE DATA.
@@ -24,7 +31,21 @@ var hundredThousandairs = null;
     }
   assign the resulting new array to `datasetWithRoundedDollar`
 */
+
+
 var datasetWithRoundedDollar = null;
+
+function roundIt(element, index, array){
+  return {
+
+    "amount": element.amount,
+    "state": element.state,
+    "rounded": Math.round(element.amount)
+  };
+}
+
+datasetWithRoundedDollar = dataset.bankBalances.map(roundIt);
+
 
 /*
   DO NOT MUTATE DATA.
@@ -50,9 +71,40 @@ var datasetWithRoundedDollar = null;
   assign the resulting new array to `roundedDime`
 */
 var datasetWithRoundedDime = null;
+function roundedDime(element, index, array){
+  return{
+    "amount": element.amount,
+    "state": element.state,
+    "roundedDime": (Math.round(element.amount * 10) / 10)
+  };
+}
+datasetWithRoundedDime = dataset.bankBalances.map(roundedDime);
+
+
+
+
+
+
+
 
 // set sumOfBankBalances to be the sum of all value held at `amount` for each bank object
+
 var sumOfBankBalances = null;
+
+function sumBalances(previousValue, currentValue){
+  return previousValue + parseFloat(currentValue.amount);
+}
+
+x = (dataset.bankBalances.reduce(sumBalances, 0));
+var rounded = x.toFixed(2);
+sumOfBankBalances = parseFloat(rounded);
+
+
+
+
+
+
+
 
 /*
   from each of the following states:
